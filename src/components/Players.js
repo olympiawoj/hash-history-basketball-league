@@ -16,7 +16,7 @@ export default class Players extends Component {
         //Prop we're getting from react-router
         const { location } = this.props
         //if this location has a query parameter to it, players we want to get are only players on bulls
-        //if /players and noq uery parameters, render all players
+        //if /players and no query parameters, render all players
         location.search
             ? this.fetchPlayers(parse(location.search).teamId) : this.fetchPlayers()
     }
@@ -46,6 +46,44 @@ export default class Players extends Component {
                 {loading === false && location.pathname === '/players' ?
                     <div className='sidebar-instruction'>Select a player</div>
                     : null}
+
+                {/* Render a nested route that renders when path is /players/:id*/}
+                <Route path={`${match.url}/:playerId`} render={({ match }) => {
+                    if (loading === true) return null
+
+                    const { name, position, teamId, number, avatar, stats, apg, ppg, rpg, spg } = players.find((player) => slug(player.name) === match.params.playerId)
+
+                    return (
+                        <div className="panel">
+                            <img className="avatar" src={`${avatar}`} alt={`${name}'s avatar`}></img>
+                            <h1 className="medium-header">{name}</h1>
+                            <h3 className="header">{number}</h3>
+                            <div className="row">
+                                <ul className="info-list" style={{ marginRight: 80 }}>
+                                    <li> Team
+                                        <div>
+                                            <Link to={`/${teamId}`} style={{ color: `#6889a` }}>
+                                                {teamId[0].toUpperCase() + teamId.slice(1)}
+                                            </Link>
+                                        </div>
+                                    </li>
+                                    <li>Position
+                                        <div>{position}</div>
+                                    </li>
+                                    <li>PPG
+                                        <div>{ppg}</div>
+                                    </li>
+                                </ul>
+                                <ul className="info-list">
+                                    <li>APG <div>{apg}</div></li>
+                                    <li>SPG <div>{spg}</div></li>
+                                    <li>RPG <div>{rpg}</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                    )
+
+                }}></Route>
             </div>
         )
     }
