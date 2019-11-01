@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import Sidebar from "./Sidebar"
 import { Route } from "react-router-dom"
 import { getTeamsArticles } from "../api"
+import Article from "./Article"
 
 export default class Articles extends Component {
     state = {
@@ -32,6 +33,24 @@ export default class Articles extends Component {
             <h1>LOADING</h1> :
             <div className="container two-column">
                 <Sidebar loading={loading} title="Articles" list={teamsArticles} {...this.props} />
+                {/*Render passed a match prop
+                & we want to get info about article with id of match.params.articleId */}
+                <Route path={`${url}/:articleId`} render={({ match }) => (
+                    <Article articleId={match.params.articleId} teamId={teamId}>
+                        {/* Pass article a function & what it'll give us back is an article */}
+                        {((article) => !article ?
+                            <h1>LOADING</h1>
+                            : <div className="panel">
+                                <article className="article" key="article.id">
+                                    <h1 className="header">{article.title}</h1>
+                                    <p>{article.body}</p>
+                                </article>
+                            </div>
+                        )}
+                    </Article>
+                )} />
+
+
             </div>
     }
 }
