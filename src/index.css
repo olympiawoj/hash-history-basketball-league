@@ -9,6 +9,21 @@ body {
   font-size: 16px;
 }
 
+.fade-enter {
+  opacity: 0;
+  z-index: 1
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
+}
+
+/* If item is exiting, go ahead and hide it*/
+.fade-exit {
+  display: none;
+}
+
 a {
   color: #252525;
   text-decoration: none;
