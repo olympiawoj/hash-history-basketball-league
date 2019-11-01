@@ -1,11 +1,46 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import Home from "./Home"
-import Players from "./Players"
-import Teams from "./Teams"
+// import Home from "./Home"
+// import Players from "./Players"
+// import Teams from "./Teams"
 import Nav from "./Nav"
-import TeamPage from "./TeamPage"
-import Articles from "./Articles"
+// import TeamPage from "./TeamPage"
+// import Articles from "./Articles"
+import Loading from "./Loading"
+
+import DynamicImport from "./DynamicImport"
+
+//When load prop is invoked, it will use the dynamic import syntax to go and import the component or the module 
+const Home = (props) => (
+  <DynamicImport load={() => import("./Home")}>
+    {(Component) => Component === null
+      ? <Loading /> : <Component {...props} />}
+  </DynamicImport>)
+
+const Players = (props) => (
+  <DynamicImport load={() => import("./Players")}>
+    {(Component) => Component === null
+      ? <Loading /> : <Component {...props} />}
+  </DynamicImport>)
+
+const Teams = (props) => (
+  <DynamicImport load={() => import("./Teams")}>
+    {(Component) => Component === null
+      ? <Loading /> : <Component {...props} />}
+  </DynamicImport>)
+
+const TeamPage = (props) => (
+  <DynamicImport load={() => import("./TeamPage")}>
+    {(Component) => Component === null
+      ? <Loading /> : <Component {...props} />}
+  </DynamicImport>)
+
+const Articles = (props) => (
+  <DynamicImport load={() => import("./Articles")}>
+    {(Component) => Component === null
+      ? <Loading /> : <Component {...props} />}
+  </DynamicImport>
+)
 
 function App() {
   return (

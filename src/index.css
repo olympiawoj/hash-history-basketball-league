@@ -21,6 +21,7 @@ body {
 
 /* If item is exiting, go ahead and hide it*/
 .fade-exit {
+  opacity: 0;
   display: none;
 }
 
