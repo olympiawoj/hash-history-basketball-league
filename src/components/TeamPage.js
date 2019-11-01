@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom"
 import { getTeamsArticles, getTeamNames } from "../api"
 import TeamLogo from "./TeamLogo"
 import Team from "./Team"
+import Loading from "./Loading"
 import slug from "slug"
 
 export default class TeamPage extends Component {
@@ -38,7 +39,7 @@ export default class TeamPage extends Component {
                 {/*must pass func as chuld*/}
                 < Team id={teamId} >
                     {(team) => team === null ?
-                        <h1>LOADING</h1>
+                        <Loading text="Loading Team Page"></Loading>
                         : <div className="panel">
                             <TeamLogo id={teamId} />
                             <h1 className="medium-header">{team.name}</h1>
